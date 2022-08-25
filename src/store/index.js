@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import productModule from "./productModule";
 import stoksModule from "./stoksModule";
 import newsModule from "./newsModule";
+import cartModule from "./cartModule";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -10,5 +11,6 @@ export default new Vuex.Store({
     productModule,
     stoksModule,
     newsModule,
+    cartModule,
   },
 });

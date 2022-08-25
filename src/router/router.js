@@ -44,6 +44,10 @@ const routes = [
     component: () => import("../pages/NewsPage.vue"),
   },
   {
+    path: "/cart",
+    component: () => import("../pages/CartPage.vue"),
+  },
+  {
     path: "/error404",
     component: () => import("../pages/Error404Page.vue"),
   },

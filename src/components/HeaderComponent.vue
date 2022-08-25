@@ -5,9 +5,14 @@
     >
     <v-spacer />
     <div class="mr-12">8 (999) 999-99-99</div>
-    <v-btn class="mr-3"
-      ><img class="market" src="../assets/market.png"
-    /></v-btn>
+    <router-link :to="'/cart'"
+      ><v-btn class="mr-3"
+        ><img class="market" src="../assets/market.svg" />
+        <div class="counter">
+          {{ this.$store.getters.getСartLength }}
+        </div></v-btn
+      ></router-link
+    >
   </v-app-bar>
 </template>
 
@@ -24,6 +29,9 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.$store.dispatch("fetchCartItems");
+  },
 };
 </script>
 
@@ -31,9 +39,25 @@ export default {
 a {
   text-decoration: none;
 }
-
+.mr-3 {
+  position: relative;
+}
 .market {
   width: 32px;
   height: 32px;
+}
+
+.counter {
+  position: absolute;
+  background-color: red;
+  border-radius: 50%;
+  top: -8px;
+  right: -24px;
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

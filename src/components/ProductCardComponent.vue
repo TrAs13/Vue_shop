@@ -13,10 +13,8 @@
 
     <v-card-actions class="card__actions">
       <v-card-title> {{ product.price }}$ </v-card-title>
-
       <v-spacer></v-spacer>
-
-      <v-btn color="orange lighten-2" text>
+      <v-btn @click="addToCart" color="orange lighten-2" text>
         Купить
       </v-btn>
     </v-card-actions>
@@ -26,6 +24,15 @@
 export default {
   props: {
     product: {},
+  },
+  methods: {
+    addToCart() {
+      localStorage.setItem(
+        this.product.id,
+        +localStorage.getItem(this.product.id) + 1
+      );
+      this.$store.dispatch("addToCart", [this.product.id, 1]);
+    },
   },
 };
 </script>
