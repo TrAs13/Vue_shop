@@ -13,7 +13,6 @@ export default {
     this.product = this.$store.getters.getAllProducts.filter(
       (product) => product.id == this.id
     )[0];
-    console.log(this.product);
   },
 };
 </script>

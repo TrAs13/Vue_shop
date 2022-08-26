@@ -45,12 +45,6 @@ export default {
       this.counter--;
     },
     addToCart() {
-      localStorage.setItem(
-        this.product.id,
-        +localStorage.getItem(this.product.id) + this.counter
-      );
-      if (localStorage.getItem(this.product.id) <= 0)
-        localStorage.removeItem(this.product.id);
       this.$store.dispatch("addToCart", [this.product.id, this.counter]);
       this.counter = 1;
     },

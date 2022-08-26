@@ -41,6 +41,7 @@
 export default {
   props: {
     product: {},
+    id: Number,
   },
 };
 </script>

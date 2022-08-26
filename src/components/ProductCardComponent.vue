@@ -4,7 +4,7 @@
     <router-link
       :to="{
         name: 'productSpecifications',
-        params: { id: product.id },
+        params: { id: this.product.id },
       }"
       ><v-card-title>
         {{ product.title }}
@@ -27,10 +27,6 @@ export default {
   },
   methods: {
     addToCart() {
-      localStorage.setItem(
-        this.product.id,
-        +localStorage.getItem(this.product.id) + 1
-      );
       this.$store.dispatch("addToCart", [this.product.id, 1]);
     },
   },

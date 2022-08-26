@@ -1,28 +1,19 @@
 export default {
   state: {
     cartItems: {},
-    cartLength: 0,
   },
   mutations: {
     setCartItems(state, payload) {
       state.cartItems = payload;
-      let count = 0;
-      for (let item in state.cartItems) count += +state.cartItems[item];
-      state.cartLength = count;
-    },
-    addToCart(state, payload) {
-      for (let item in payload) {
-        if (payload[item] <= -1 * +state.cartItems[item]) {
-          state.cartLength += -state.cartItems[item];
-        } else state.cartLength += payload[item];
-        state.cartItems[item] = (state.cartItems[item] || 0) + payload[item];
-        if (state.cartItems[item] <= 0) state.cartItems[item] = 0;
-      }
     },
   },
   getters: {
     getСartLength(state) {
-      return state.cartLength;
+      let length = 0;
+      for (let i = 0; i < state.cartItems.length; i++) {
+        length += state.cartItems[i].count;
+      }
+      return length;
     },
     getCartItems(state) {
       return state.cartItems;
@@ -30,18 +21,22 @@ export default {
   },
   actions: {
     fetchCartItems(ctx) {
-      let res = {};
-      let keys = Object.keys(localStorage),
-        i = keys.length;
-      while (i--) {
-        res[keys[i]] = +localStorage.getItem(keys[i]);
-      }
-      ctx.commit("setCartItems", res);
+      let items = JSON.parse(localStorage.getItem("vue_shop_cart")) || [];
+      ctx.commit("setCartItems", items);
     },
     addToCart(ctx, params) {
-      let res = {};
-      res[params[0]] = params[1];
-      ctx.commit("addToCart", res);
+      let items = JSON.parse(localStorage.getItem("vue_shop_cart")) || [];
+      let item = items.find((item) => item.id === params[0]);
+      if (item) {
+        item.count += params[1];
+        if (item.count <= 0) {
+          items.splice(items.indexOf((item) => item.id === params[0]) - 1, 1);
+        }
+      } else {
+        if (params[1] > 0) items.push({ id: params[0], count: params[1] });
+      }
+      localStorage.setItem("vue_shop_cart", JSON.stringify(items));
+      ctx.commit("setCartItems", items);
     },
   },
 };

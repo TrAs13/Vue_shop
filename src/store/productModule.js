@@ -11,7 +11,7 @@ export default {
   },
   getters: {
     getAllProducts(state) {
-      return state.products.sort((a, b) => a.id - b.id);
+      return state.products;
     },
     getTopProducts(state) {
       return state.products
@@ -19,15 +19,20 @@ export default {
         .slice(0, 4);
     },
     getProductsInCart(state) {
-      let keys = Object.keys(localStorage);
-
-      return state.products.filter(
-        (item) => keys.indexOf(item.id.toString()) != -1
-      );
+      let items = JSON.parse(localStorage.getItem("vue_shop_cart")) || [];
+      let res = [];
+      for (let i = 0; i < state.products.length; i++) {
+        for (let j = 0; j < items.length; j++) {
+          if (state.products[i].id == items[j].id) {
+            res.push(state.products[i]);
+          }
+        }
+      }
+      return res;
     },
   },
   actions: {
-    fetchProducts(ctx) {
+    async fetchProducts(ctx) {
       axios
         .get("https://fakestoreapi.com/products")
         .then((response) => ctx.commit("setProducts", response.data));

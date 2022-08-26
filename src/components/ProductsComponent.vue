@@ -24,13 +24,8 @@
 import ProductCardComponent from "./ProductCardComponent.vue";
 export default {
   data: () => ({
-    products: [],
     counter: 1,
   }),
-  mounted() {
-    this.$store.dispatch("fetchProducts");
-    this.counter = 1;
-  },
   computed: {
     productItems() {
       return this.$store.getters.getAllProducts.slice(
