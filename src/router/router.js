@@ -48,6 +48,14 @@ const routes = [
     component: () => import("../pages/CartPage.vue"),
   },
   {
+    path: "/order_success",
+    component: () => import("../pages/OrderSuccessPage.vue"),
+  },
+  {
+    path: "/about",
+    component: () => import("../pages/AboutPage.vue"),
+  },
+  {
     path: "/error404",
     component: () => import("../pages/Error404Page.vue"),
   },

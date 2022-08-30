@@ -1,10 +1,13 @@
 export default {
   state: {
-    cartItems: {},
+    cartItems: [],
   },
   mutations: {
     setCartItems(state, payload) {
       state.cartItems = payload;
+    },
+    deleteCartItems(state) {
+      state.cartItems = [];
     },
   },
   getters: {
@@ -23,6 +26,9 @@ export default {
     fetchCartItems(ctx) {
       let items = JSON.parse(localStorage.getItem("vue_shop_cart")) || [];
       ctx.commit("setCartItems", items);
+    },
+    deleteCartItems(ctx) {
+      ctx.commit("deleteCartItems");
     },
     addToCart(ctx, params) {
       let items = JSON.parse(localStorage.getItem("vue_shop_cart")) || [];
