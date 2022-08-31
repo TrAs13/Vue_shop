@@ -16,15 +16,9 @@
       ></ProductCardComponent>
     </v-row>
     <v-row class="flex justify-center">
-      <v-btn
-        @click="changePage(page)"
-        v-for="page in maxPages"
-        v-bind:key="page"
-        >{{ page }}</v-btn
-      >
-    </v-row>
-  </div></template
->
+      <v-pagination v-model="page" :length="maxPages"></v-pagination>
+    </v-row></div
+></template>
 <script>
 import ProductCardComponent from "../components/ProductCardComponent.vue";
 export default {
@@ -61,13 +55,11 @@ export default {
       else return 5;
     },
     maxPages() {
-      let pages = [];
       let len =
         this.$store.getters.getAllProducts.filter(
           (item) => item.category == this.category || this.category == "all"
         ).length / this.limitProduct;
-      for (let i = 1; i <= Math.ceil(len); i++) pages.push(i);
-      return pages;
+      return Math.ceil(len);
     },
   },
   methods: {

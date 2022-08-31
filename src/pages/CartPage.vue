@@ -32,6 +32,7 @@
                       <v-text-field
                         v-model="phone"
                         required
+                        :rules="phoneRules"
                         type="tel"
                         color="orange"
                         label="Номер телефона"
@@ -90,6 +91,11 @@ export default {
     phone: "",
     address: "",
     city: "",
+    phoneRules: [
+      (v) =>
+        /\+7\(\d{3}\)\d{3}-\d{2}-\d{2}/.test(v) ||
+        "Номер телефона должен быть введен в формате +7(999)999-99-99",
+    ],
   }),
   components: { CartCardComponent },
   methods: {
